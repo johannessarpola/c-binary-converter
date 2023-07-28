@@ -85,9 +85,6 @@ double binaryStringToDouble(const char *bstr, size_t length)
 
     if (verbose)
     {
-    }
-    if (verbose)
-    {
         printf("End components: \n");
         printf("Sign    :    %c\n", (bstr[0] == '1') ? '-' : '+');
         printf("Exponent:    %.10f\n", pow(2, exponent - 1023));
