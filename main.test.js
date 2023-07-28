@@ -15,54 +15,51 @@ beforeAll(() => {
 });
 
 
+function inputOutputTest(entry) {
+  test(`Test ${entry.in} to be ${entry.out}`, () => {
+    const input = entry.in.replaceAll(" ", "");
+    const output = execSync(`${mainCommand} ${input}`).toString().trim();
+    expect(output).toBe(entry.out);
+  });
+}
+
+
+
 describe('Binary conversions to decimal', function () {
 
-  test('Test 10100 to be 20', () => {
-    const input = '10100';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('20');
-  });
-
-  test('Test binary 11001 to be 25', () => {
-    const input = '11001';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('25');
-  });
-
-  test('Test binary 11110 to be 30', () => {
-    const input = '11110';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('30');
-  });
-
-  test('Test binary 101000 to be 40', () => {
-    const input = '101000';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('40');
-  });
-
-  test('Test binary 110010 to be 50', () => {
-    const input = '110010';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('50');
-  });
-
-  test('Test binary 1100100 to be 100', () => {
-    const input = '1100100';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('100');
-  });
-
-  test('Test binary 11001000 to be 200', () => {
-    const input = '11001000';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('200');
-  });
-
-  test('Test binary 111110100 to be 500', () => {
-    const input = '111110100';
-    const output = execSync(`${mainCommand} ${input}`).toString().trim();
-    expect(output).toBe('500');
-  });
+  const table = [
+    { in: "10100", out: "20" },
+    { in: "11001", out: "25" },
+    { in: "11110", out: "30" },
+    { in: "101000", out: "40" },
+    { in: "110010", out: "50" },
+    { in: "1100100", out: "100" },
+    { in: "11001000", out: "200" },
+    { in: "111110100", out: "500" },
+  ]
   
+
+  table.forEach((entry) => {
+    inputOutputTest(entry);
+  })
+
+});
+
+
+
+
+describe('Binary conversions to IEE 754', function () {
+
+  const table = [
+    { in: "01000000 00001001 00100001 11111011 10000010 11000010 10111101 01111111", out: "3.14159" },
+    { in: "01000000 00110111 11111111 10111110 01110110 11001000 10110100 00111001", out: "23.99900" },
+    { in: "11000000 01010011 01100011 10000101 00011110 10111000 01010001 11101100", out: "-77.55500" },
+    { in: "01000000 01000101 00000000 00000000 00000000 00000000 00000000 00000000", out: "42.00000" },
+    { in: "01000000 10011100 00011011 00100101 01101011 11011110 01110101 01101100", out: "1798.78654" },
+  ]
+  
+  table.forEach((entry) => {
+    inputOutputTest(entry);
+  })
+
 });
