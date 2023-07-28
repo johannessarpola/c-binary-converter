@@ -97,11 +97,13 @@ double binaryStringToDouble(const char *bstr, size_t length)
     // Handle special cases (zero, denormalized numbers)
     if (exponent == 0)
     {
-        return sign * fraction * pow(2, -1022); // Denormalized numbers
+        // Denormalized numbers
+        return sign * fraction * pow(2, -1022);
     }
     else if (exponent == 2047)
     {
-        return fraction != 0 ? NAN : sign * INFINITY; // Infinity or NaN
+        // Infinity or NaN
+        return fraction != 0 ? NAN : sign * INFINITY;
     }
     else
     {
