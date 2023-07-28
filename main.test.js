@@ -16,8 +16,6 @@ function inputOutputTest(entry) {
   });
 }
 
-
-
 describe('Binary conversions to decimal', function () {
 
   const table = [
@@ -31,14 +29,11 @@ describe('Binary conversions to decimal', function () {
     { in: "111110100", out: "500" },
   ]
   
-
   table.forEach((entry) => {
     inputOutputTest(entry);
   })
 
 });
-
-
 
 
 describe('Binary conversions to IEE 754', function () {
