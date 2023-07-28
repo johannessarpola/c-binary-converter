@@ -4,7 +4,7 @@ const mainCommand = './main'; // output name of executable
 const sources = ["main.c"];   // sources to include in gcc
 
 beforeAll(() => {
-  execSync(`gcc ${sources.join(",")} -o ${mainCommand}`);
+  execSync(`gcc ${sources.join(",")} -o ${mainCommand} -lm`);
 });
 
 
