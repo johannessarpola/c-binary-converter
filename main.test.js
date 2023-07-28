@@ -1,17 +1,10 @@
 const { execSync, spawn } = require('child_process');
 
-// Assuming your native application is named 'main' and takes input from command line arguments
-const mainCommand = './main'; // Replace 'path/to/main' with the actual path to your 'main' application
-const sources = ["main.c"];
-
-/*
-Decimal:	  20	    25	    30	    40	    50	    100	    200	        500
-Binary:	    10100	11001	11110	101000	110010	1100100	11001000    111110100
-
-*/
+const mainCommand = './main'; // output name of executable
+const sources = ["main.c"];   // sources to include in gcc
 
 beforeAll(() => {
-  execSync(`gcc ${sources.join(",")} -o main`);
+  execSync(`gcc ${sources.join(",")} -o ${mainCommand}`);
 });
 
 
