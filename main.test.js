@@ -16,6 +16,22 @@ function inputOutputTest(entry) {
   });
 }
 
+
+
+function inputExceptionTest(entry) {
+  test(`Test ${entry.in} to be ${entry.out}`, () => {
+    const input = entry.in.replaceAll(" ", "");
+    try {
+      execSync(`${mainCommand} ${input}`).toString().trim();
+    }
+    catch (error) {
+      expect(error.status).not.toBeLessThan(1)
+      expect(error.stdout.toString()).toBe(entry.out);
+    }
+
+  });
+}
+
 describe('Binary conversions to decimal', function () {
 
   const table = [
@@ -28,15 +44,27 @@ describe('Binary conversions to decimal', function () {
     { in: "11001000", out: "200" },
     { in: "111110100", out: "500" },
   ]
-  
+
   table.forEach((entry) => {
     inputOutputTest(entry);
   })
 
 });
 
+describe("Handle invalid inputs", function () {
+  const table = [
+    { in: "123", out: "Please use only binary strings" },
+    { in: "-99", out: "Please use only binary strings" },
+  ];
 
-describe('Binary conversions to IEE 754', function () {
+  table.forEach((entry) => {
+    inputExceptionTest(entry);
+  })
+
+});
+
+
+describe('Binary conversions to IEE 754 double-previcision floating point', function () {
   const table = [
     // Custom
     { in: "01000000 00001001 00100001 11111011 10000010 11000010 10111101 01111111", out: "3.14159" },
@@ -50,7 +78,7 @@ describe('Binary conversions to IEE 754', function () {
     { in: "01111111 11101111 11111111 11111111 11111111 11111111 11111111 11111111", out: "179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00000" },
     { in: "11111111 11101111 11111111 11111111 11111111 11111111 11111111 11111111", out: "-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00000" },
   ];
-  
+
   table.forEach((entry) => {
     inputOutputTest(entry);
   })
