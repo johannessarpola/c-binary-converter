@@ -7,7 +7,6 @@ beforeAll(() => {
   execSync(`gcc ${sources.join(",")} -o ${mainCommand} -lm`);
 });
 
-
 function inputOutputTest(entry) {
   test(`Test ${entry.in} to be ${entry.out}`, () => {
     const input = entry.in.replaceAll(" ", "");
