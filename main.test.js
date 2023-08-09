@@ -16,8 +16,6 @@ function inputOutputTest(entry) {
   });
 }
 
-
-
 function inputExceptionTest(entry) {
   test(`Test ${entry.in} to be ${entry.out}`, () => {
     const input = entry.in.replaceAll(" ", "");
